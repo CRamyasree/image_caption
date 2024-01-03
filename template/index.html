@@ -1,0 +1,76 @@
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DL Project</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+    <h1 class="'text-center">Image Caption Generation</h1>
+    <form class="p-3 text-center" action="/" method="post" enctype="multipart/form-data">
+        <input class="form-control" type="file" name="imagefile">
+        <input class="btn btn-primary mt-3" type="submit" value="predict Image">
+
+    </form>
+    {% if prediction %} 
+        <p>Image caption(English): {{prediction}}</p>
+        <p>Image caption(Telugu): {{prediction1}}</p>
+    {% endif %}
+    
+</body>
+</html>-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DL Project</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+    <h1 class="text-center">Image Caption Generation</h1>
+    <form class="p-3 text-center" action="/" method="post" enctype="multipart/form-data">
+        <input class="form-control" type="file" name="imagefile" id="imageInput" accept="image/*" onchange="previewImage()">
+        <button class="btn btn-primary mt-3" type="submit">Predict Image</button>
+    </form>
+
+    <div class="text-center mt-3" id="imageContainer">
+        <!-- Image will be displayed here -->
+        <img id="uploadedImage" alt="Uploaded Image" style="max-width: 400px;">
+    </div>
+
+    {% if prediction %} 
+        <p>Image caption (English): {{ prediction }}</p>
+        <p>Image caption (Telugu): {{ prediction1 }}</p>
+    {% endif %}
+
+    <script>
+        var predictionMade = false;
+
+        function previewImage() {
+            if (!predictionMade) {
+                var input = document.getElementById('imageInput');
+                var imageContainer = document.getElementById('imageContainer');
+                var file = input.files[0];
+
+                if (file) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        var image = document.getElementById('uploadedImage');
+                        image.src = e.target.result;
+                        image.alt = 'Uploaded Image';
+                        image.style.maxWidth = '400px';  // Adjust the size as needed
+                        imageContainer.innerHTML = '';  // Clear previous content
+                        imageContainer.appendChild(image);
+                    };
+
+                    reader.readAsDataURL(file);
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
